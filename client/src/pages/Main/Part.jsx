@@ -19,28 +19,32 @@ const priceTableData = [
 
 const Part = () => {
   return (
-    <div className="text-black bg-page-bg px-3 pt-3 flex flex-col gap-4">
-      {/* UPPER SECTION --> IMAGE AND DESCRIPTION*/}
-      <div className="flex flex-col gap-12 items-center px-4 bg-white shadow-xl py-4">
-        <ImageSection />
-        <Description />
-      </div>
+    <div className="bg-page-bg">
+      <div className="flex flex-col gap-4 text-black  px-3 pt-3 xl:flex-row lg:justify-center max-w-[1200px] mx-auto">
+        {/* UPPER SECTION --> IMAGE AND DESCRIPTION*/}
+        <div className="h-fit flex flex-col gap-12 items-center px-4 bg-white shadow-xl py-4 xl:max-w-[800px] md:rounded-2xl 2xl:flex-row">
+          <ImageSection />
+          <Description />
+        </div>
 
-      {/* LOWER SECTION --> BULK PRICES AND DIFFERENT DISTRIBUTORS*/}
-      <div className="flex flex-col gap-4 bg-white">
-        {priceTableData.map((data, i) => {
-          return <PriceBox key={i} img={data.img} />;
-        })}
-      </div>
+        <div className="flex flex-col gap-4 flex-grow xl:max-w-[350px]">
+          {/* LOWER SECTION --> BULK PRICES AND DIFFERENT DISTRIBUTORS*/}
+          <div className="flex flex-col gap-4">
+            {priceTableData.map((data, i) => {
+              return <PriceBox key={i} img={data.img} />;
+            })}
+          </div>
 
-      {/* LOWEST PRICE SECTION */}
-      <div>
-        <LowestPriceBox />
-      </div>
+          {/* LOWEST PRICE SECTION */}
+          <div>
+            <LowestPriceBox />
+          </div>
 
-      {/* ADD TO CART SECTION */}
-      <div className="bg-white p-3">
-        <AddToCart />
+          {/* ADD TO CART SECTION */}
+          <div className="bg-white p-3">
+            <AddToCart />
+          </div>
+        </div>
       </div>
     </div>
   );

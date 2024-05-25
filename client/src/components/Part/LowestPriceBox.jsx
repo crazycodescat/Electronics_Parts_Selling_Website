@@ -5,7 +5,7 @@ const LowestPriceBox = () => {
   return (
     <div className="bg-white shadow-xl">
       {/* Price Box Header */}
-      <div className="flex justify-between p-4 px-2 bg-green-300">
+      <div className="flex justify-between p-4 px-2 border border-solid border-[#B4B4B4] border-b-0">
         {/* BULK TEXT AND ICON */}
         <div className="flex gap-2 items-center">
           <p className="font-semibold text-base">LOWEST PRICE</p>
@@ -17,15 +17,15 @@ const LowestPriceBox = () => {
       <table className="w-full">
         <thead>
           <tr className="text-xs">
-            <td className="p-2 font-bold border-solid border-[#B4B4B4] border">
+            <th className="p-2 font-bold border-solid border-[#B4B4B4] border">
               QUANTITY
-            </td>
-            <td className="p-2 font-bold border-solid border-[#B4B4B4] border">
+            </th>
+            <th className="p-2 font-bold border-solid border-[#B4B4B4] border">
               UNIT PRICE
-            </td>
-            <td className="p-2 font-bold border-solid border-[#B4B4B4] border">
+            </th>
+            <th className="p-2 font-bold border-solid border-[#B4B4B4] border">
               EXT PRICE
-            </td>
+            </th>
           </tr>
         </thead>
         <tbody>

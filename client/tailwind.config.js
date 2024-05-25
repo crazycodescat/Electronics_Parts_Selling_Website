@@ -8,7 +8,8 @@ export default {
       md: '700px',
       lg: '900px',
       xl: '1200px',
-      xxl: '1500px',
+      '2xl': '1400px',
+      '3xl': '1600px',
     },
     colors: {
       'blue-50': 'rgb(239 246 255)',
