@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import RootLayout from './pages/Root';
 import HomePage from './pages/Main/HomePage';
 import Part from './pages/Main/Part';
+import { AccessTokenProvider } from './context/GetAccessToken';
 import './App.css';
 
 const router = createBrowserRouter([
@@ -23,7 +24,11 @@ const router = createBrowserRouter([
 ]);
 
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <AccessTokenProvider>
+      <RouterProvider router={router} />
+    </AccessTokenProvider>
+  );
 }
 
 export default App;

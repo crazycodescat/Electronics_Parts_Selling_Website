@@ -1,6 +1,7 @@
 import { IoMenu } from 'react-icons/io5';
 import { FaRegUser, FaCartPlus } from 'react-icons/fa';
-import { useState } from 'react';
+import { useState, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 
@@ -9,10 +10,23 @@ import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [open, setOpen] = useState(false);
+  const [enterPartNumber, setEnterPartNumber] = useState(false);
+  const ref = useRef();
+  const navigate = useNavigate();
   const navigationToggler = () => setOpen((prev) => !prev);
 
+  const submitPartNumber = (e) => {
+    // e.preventDefault();
+    console.log(ref.current.value.length);
+    if (ref.current.value.length > 0) {
+      navigate(`/api/part?part_Number=${ref.current.value}`);
+    } else {
+      setEnterPartNumber(true);
+      return;
+    }
+  };
   return (
-    <header className="flex flex-col gap-2 bg-neutral-800 pt-4 relative">
+    <header className="flex flex-col gap-2 bg-neutral-800 pt-4 relative font-Inter">
       <AnimatePresence>
         {open && <MobileNavigation navigationToggler={navigationToggler} />}
       </AnimatePresence>
@@ -45,21 +59,35 @@ const Header = () => {
         </div>
       </div>
       <div className="flex justify-center w-full bg-neutral-400 p-2">
-        <form className="flex w-[700px] justify-between rounded-lg">
-          <input
-            className="text-neutral-900 p-4 w-full rounded-tl-md rounded-bl-md focus:outline-none"
-            type="search"
-            name="part number"
-            id=""
-            placeholder="Enter keyword or part#"
-          />
-          <button
-            type="submit"
-            className="flex items-center justify-center bg-red-600 w-16 rounded-tr-md rounded-br-md"
+        <div className="flex flex-col gap-1">
+          <form
+            onSubmit={submitPartNumber}
+            className="flex justify-between rounded-lg"
           >
-            <FaMagnifyingGlass />
-          </button>
-        </form>
+            <input
+              ref={ref}
+              className="text-neutral-900 p-4 w-full rounded-tl-md rounded-bl-md focus:outline-none"
+              type="search"
+              name="part number"
+              id=""
+              placeholder="Enter keyword or part#"
+            />
+            <button
+              type="submit"
+              className="flex items-center justify-center bg-red-600 w-16 rounded-tr-md rounded-br-md"
+            >
+              <FaMagnifyingGlass />
+            </button>
+          </form>
+          {/* Error's */}
+          {enterPartNumber && (
+            <div className="">
+              <p className="text-base text-red-600 font-semibold uppercase underline">
+                Enter Any Part Number
+              </p>
+            </div>
+          )}
+        </div>
       </div>
     </header>
   );
