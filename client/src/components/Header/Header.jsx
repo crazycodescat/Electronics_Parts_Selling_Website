@@ -19,7 +19,7 @@ const Header = () => {
     // e.preventDefault();
     console.log(ref.current.value.length);
     if (ref.current.value.length > 0) {
-      navigate(`/api/part?part_Number=${ref.current.value}`);
+      navigate(`/api/part?partnumber=${ref.current.value}`);
     } else {
       setEnterPartNumber(true);
       return;

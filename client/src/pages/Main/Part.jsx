@@ -28,7 +28,7 @@ const Part = () => {
   const [products, setProducts] = useState();
   const [searchParams, setSearchParams] = useSearchParams();
   const partNumber = searchParams.get('part number');
-  console.log(searchParams.get('partNumber'));
+  console.log(searchParams.get('part number'));
 
   useEffect(() => {
     const loadParts = async () => {

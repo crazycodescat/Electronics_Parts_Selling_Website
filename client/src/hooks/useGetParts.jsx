@@ -9,7 +9,6 @@ const useGetParts = () => {
   const products = [];
 
   const fetchParts = async (partNumber, limit = 20) => {
-    console.log(partNumber, limit);
     const distributorsRequestConfig = [
       {
         url: import.meta.env.VITE_DIGIKEY_SEARCH_URL,
@@ -55,6 +54,8 @@ const useGetParts = () => {
     try {
       for (let i = 0; i < distributorsRequestConfig.length; i++) {
         const response = await axios.request(distributorsRequestConfig[i]);
+        console.log(response);
+
         products.push({
           parts: formatResponse(response.data),
         });
@@ -63,7 +64,7 @@ const useGetParts = () => {
       return products;
     } catch (error) {
       console.log('ERROR: While Fetching Parts', error);
-      console.error(error);
+      console.log(error);
     }
   };
   return { fetchParts };
