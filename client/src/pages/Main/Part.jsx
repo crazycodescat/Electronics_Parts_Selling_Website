@@ -9,6 +9,7 @@ import LowestPriceBox from '../../components/Part/LowestPriceBox';
 import AddToCart from '../../components/Part/AddToCart';
 import { useAccessToken } from '../../hooks/useAccessToken';
 import { useGetParts } from '../../hooks/useGetParts';
+// import ProductDetails from '../../components/Part/ProductDetails'
 
 const Part = () => {
   const { accessToken } = useAccessToken();
@@ -33,18 +34,30 @@ const Part = () => {
         <div className="h-fit flex flex-col gap-12 items-center px-4 bg-white shadow-xl py-4 xl:max-w-[800px] md:rounded-2xl 2xl:flex-row">
           <ImageSection products={products} />
           <Description products={products} />
+          {/* <ProductDetails/> */}
         </div>
 
         <div className="flex flex-col gap-4 flex-grow xl:max-w-[350px]">
           {/* LOWER SECTION --> BULK PRICES AND DIFFERENT DISTRIBUTORS */}
           {products &&
             products.map((product, productIndex) => {
-              if (!product.parts || product.parts.length === 0) {
-                return null;
-              }
+              // if (!product.parts || product.parts.length === 0) {
+              //   return null;
+              // }
               return (
                 <div key={productIndex} className="flex flex-col gap-4">
-                  <PriceBox img={product.parts[0].img} parts={product.parts} />
+                  <PriceBox
+                    img={
+                      product.parts[1].distributor ===
+                      import.meta.env.VITE_DIGIKEY
+                        ? 'https://res.cloudinary.com/ddx7todbr/image/upload/v1713606629/Electronics%20Parts%20Listing%20Website/s0l9tr2tn1qdzdbupymp.avif'
+                        : product.parts[1].distributor ===
+                          import.meta.env.VITE_MOUSER
+                        ? 'https://res.cloudinary.com/ddx7todbr/image/upload/v1713606671/Electronics%20Parts%20Listing%20Website/c4nldcp1kyvyyzy08f2j.webp'
+                        : null
+                    }
+                    parts={product.parts}
+                  />
                 </div>
               );
             })}

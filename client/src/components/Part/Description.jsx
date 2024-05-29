@@ -1,8 +1,9 @@
+/* eslint-disable react/prop-types */
 import { BsFileEarmarkPdfFill } from 'react-icons/bs';
 import { FaRegCopy } from 'react-icons/fa6';
 
 const Description = ({ products }) => {
-  // console.log(products ? products[0].parts[0] : null);
+  console.log(products ? products[0].parts[0] : null);
   return (
     <>
       <div className="hidden md:block">
@@ -47,7 +48,7 @@ const Description = ({ products }) => {
               </div>
             </div>
             <div className="w-full">
-              <div className="flex items-center justify-between p-2 text-xs font-Inter font-medium text-neutral-600 group">
+              <div className="relative flex items-center justify-between p-2 text-xs font-Inter font-medium text-neutral-600 group">
                 <h3>
                   {(products &&
                     products &&
@@ -60,7 +61,7 @@ const Description = ({ products }) => {
                       products[1].parts &&
                       products[1].parts[0].ManufacturerPartNumber)}
                 </h3>
-                <FaRegCopy className="text-blue-800 cursor-pointer hidden group-hover:block" />
+                <FaRegCopy className="absolute top-1/2 right-0 transform -translate-y-1/2 text-blue-800 cursor-pointer hidden group-hover:block" />
               </div>
               <div className="flex items-center justify-between p-2 text-xs font-Inter font-medium text-neutral-600 group">
                 <h3 className="text-blue-700 hover:underline cursor-pointer">
@@ -310,3 +311,7 @@ const Description = ({ products }) => {
 };
 
 export default Description;
+
+// Description.propTypes = {
+//   products:propTypes.
+// };

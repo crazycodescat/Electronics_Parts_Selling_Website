@@ -41,7 +41,7 @@ const Header = () => {
             >
               <IoMenu fontSize={24} />
             </button>
-            <div className="flex">
+            <div className="flex p-3">
               <Link to="/">
                 <img
                   className="w-20"
@@ -52,11 +52,11 @@ const Header = () => {
             </div>
           </div>
 
-          <div className="flex gap-4">
-            <Link>
+          <div className="flex items-center justify-center gap-2">
+            <Link className='p-3'>
               <FaRegUser fontSize={22} />
             </Link>
-            <Link>
+            <Link className='p-3'>
               <FaCartPlus fontSize={22} />
             </Link>
           </div>

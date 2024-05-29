@@ -80,7 +80,7 @@ const PriceBox = ({ parts, img }) => {
                       <td className="text-xs border-solid border-[#B4B4B4] border p-2">
                         {formatPriceWithCommas(pricing.UnitPrice)}
                       </td>
-                      <td className="text-xs border-solid border-[#B4B4B4] border p-2">
+                      <td className="text-xs text-end border-solid border-[#B4B4B4] border p-2">
                         {formatPriceWithCommas(pricing.TotalPrice)}
                       </td>
                     </tr>
@@ -114,7 +114,7 @@ const PriceBox = ({ parts, img }) => {
                     <td className="text-xs border-solid border-[#B4B4B4] border p-2">
                       {formatPriceWithCommas(removeRupeeSign(prcBreaks.Price))}
                     </td>
-                    <td className="text-xs border-solid border-[#B4B4B4] border p-2">
+                    <td className="text-xs text-end border-solid border-[#B4B4B4] border p-2">
                       {formatPriceWithCommas(
                         prcBreaks.Quantity * removeRupeeSign(prcBreaks.Price)
                       )}
