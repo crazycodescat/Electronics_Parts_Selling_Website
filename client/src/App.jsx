@@ -16,7 +16,7 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
-        path: '/api/part',
+        path: '/api/part/:partnumber',
         element: <Part />,
       },
     ],

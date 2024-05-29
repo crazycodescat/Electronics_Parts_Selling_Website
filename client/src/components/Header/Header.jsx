@@ -1,12 +1,11 @@
 import { IoMenu } from 'react-icons/io5';
 import { FaRegUser, FaCartPlus } from 'react-icons/fa';
 import { useState, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { AnimatePresence } from 'framer-motion';
 import { FaMagnifyingGlass } from 'react-icons/fa6';
 
 import MobileNavigation from './MobileNavigation';
-import { Link } from 'react-router-dom';
 
 const Header = () => {
   const [open, setOpen] = useState(false);
@@ -16,10 +15,13 @@ const Header = () => {
   const navigationToggler = () => setOpen((prev) => !prev);
 
   const submitPartNumber = (e) => {
-    // e.preventDefault();
-    console.log(ref.current.value.length);
+    e.preventDefault();
     if (ref.current.value.length > 0) {
-      navigate(`/api/part?partnumber=${ref.current.value}`);
+      setEnterPartNumber(false);
+      const partNumber = ref.current.value;
+      const encodedPartNumber = encodeURIComponent(partNumber);
+      console.log(encodedPartNumber);
+      navigate(`/api/part/${encodedPartNumber}`);
     } else {
       setEnterPartNumber(true);
       return;
@@ -40,11 +42,13 @@ const Header = () => {
               <IoMenu fontSize={24} />
             </button>
             <div className="flex">
-              <img
-                className="w-20"
-                src="https://res.cloudinary.com/ddx7todbr/image/upload/v1713606629/Electronics%20Parts%20Listing%20Website/s0l9tr2tn1qdzdbupymp.avif"
-                alt=""
-              />
+              <Link to="/">
+                <img
+                  className="w-20"
+                  src="https://res.cloudinary.com/ddx7todbr/image/upload/v1713606629/Electronics%20Parts%20Listing%20Website/s0l9tr2tn1qdzdbupymp.avif"
+                  alt=""
+                />
+              </Link>
             </div>
           </div>
 
@@ -70,7 +74,7 @@ const Header = () => {
               type="search"
               name="part number"
               id=""
-              placeholder="Enter keyword or part#"
+              placeholder="Enter Mfr. Part Number"
             />
             <button
               type="submit"
