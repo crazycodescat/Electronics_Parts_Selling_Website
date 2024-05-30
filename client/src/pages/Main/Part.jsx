@@ -34,7 +34,6 @@ const Part = () => {
         <div className="h-fit flex flex-col gap-12 items-center px-4 bg-white shadow-xl py-4 xl:max-w-[800px] md:rounded-2xl 2xl:flex-row">
           <ImageSection products={products} />
           <Description products={products} />
-          {/* <ProductDetails/> */}
         </div>
 
         <div className="flex flex-col gap-4 flex-grow xl:max-w-[350px]">

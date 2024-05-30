@@ -3,7 +3,29 @@ import { BsFileEarmarkPdfFill } from 'react-icons/bs';
 import { FaRegCopy } from 'react-icons/fa6';
 
 const Description = ({ products }) => {
-  console.log(products ? products[0].parts[0] : null);
+  const copyToClipboard = async (text) => {
+    try {
+      if (!navigator.clipboard) {
+        console.log('clipboard API is not available');
+        return;
+      }
+
+      const textToCopy = text.trim();
+      const permissionStatus = await navigator.permissions.query({
+        name: 'clipboard-write',
+      });
+      if (permissionStatus.state === 'denied') {
+        console.log('Clipboard permission denied. please add https connection');
+        return;
+      }
+      //write the text to the clipboard
+      await navigator.clipboard.writeText(textToCopy);
+      console.log('Text copied to clipboard successfully');
+    } catch (error) {
+      console.error('Failed to copy text to clipboard:', error);
+    }
+  };
+
   return (
     <>
       <div className="hidden md:block">
@@ -61,10 +83,29 @@ const Description = ({ products }) => {
                       products[1].parts &&
                       products[1].parts[0].ManufacturerPartNumber)}
                 </h3>
-                <FaRegCopy className="absolute top-1/2 right-0 transform -translate-y-1/2 text-blue-800 cursor-pointer hidden group-hover:block" />
+                <FaRegCopy
+                  onClick={() =>
+                    copyToClipboard(
+                      (products &&
+                        products &&
+                        products[0] &&
+                        products[0].parts &&
+                        products[0].parts[0].ManufacturerProductNumber) ||
+                        (products &&
+                          products &&
+                          products[1] &&
+                          products[1].parts &&
+                          products[1].parts[0].ManufacturerPartNumber)
+                    )
+                  }
+                  className="absolute top-1/2 right-0 transform -translate-y-1/2 text-blue-800 cursor-pointer hidden group-hover:block"
+                />
               </div>
-              <div className="flex items-center justify-between p-2 text-xs font-Inter font-medium text-neutral-600 group">
-                <h3 className="text-blue-700 hover:underline cursor-pointer">
+              <div className="flex items-center justify-between p-2 text-xs font-Inter font-medium text-neutral-600 group relative">
+                <h3
+                  onClick={copyToClipboard}
+                  className="text-blue-700 hover:underline cursor-pointer"
+                >
                   {(products &&
                     products &&
                     products[0] &&
@@ -76,9 +117,25 @@ const Description = ({ products }) => {
                       products[1].parts &&
                       products[1].parts[0].Manufacturer)}
                 </h3>
-                <FaRegCopy className="text-blue-800 cursor-pointer hidden group-hover:block" />
+                <FaRegCopy
+                  onClick={() =>
+                    copyToClipboard(
+                      (products &&
+                        products &&
+                        products[0] &&
+                        products[0].parts &&
+                        products[0].parts[0].Manufacturer?.Name) ||
+                        (products &&
+                          products &&
+                          products[1] &&
+                          products[1].parts &&
+                          products[1].parts[0].Manufacturer)
+                    )
+                  }
+                  className="absolute top-1/2 right-0 transform -translate-y-1/2 text-blue-800 cursor-pointer hidden group-hover:block"
+                />
               </div>
-              <div className="flex items-center justify-between p-2 text-xs font-Inter font-medium text-neutral-600 group">
+              <div className="flex items-center justify-between p-2 text-xs font-Inter font-medium text-neutral-600 group relative">
                 <h3>
                   {(products &&
                     products &&
@@ -91,9 +148,25 @@ const Description = ({ products }) => {
                       products[1].parts &&
                       products[1].parts[0].ManufacturerPartNumber)}
                 </h3>
-                <FaRegCopy className="text-blue-800 cursor-pointer hidden group-hover:block" />
+                <FaRegCopy
+                  onClick={() =>
+                    copyToClipboard(
+                      (products &&
+                        products &&
+                        products[0] &&
+                        products[0].parts &&
+                        products[0].parts[0].ManufacturerProductNumber) ||
+                        (products &&
+                          products &&
+                          products[1] &&
+                          products[1].parts &&
+                          products[1].parts[0].ManufacturerPartNumber)
+                    )
+                  }
+                  className="absolute top-1/2 right-0 transform -translate-y-1/2 text-blue-800 cursor-pointer hidden group-hover:block"
+                />
               </div>
-              <div className="flex items-center justify-between p-2 text-xs font-Inter font-medium text-neutral-600 group">
+              <div className="flex items-center justify-between p-2 text-xs font-Inter font-medium text-neutral-600 group relative">
                 <h3>
                   {(products &&
                     products &&
@@ -106,7 +179,23 @@ const Description = ({ products }) => {
                       products[1].parts &&
                       products[1].parts[0].Description)}
                 </h3>
-                <FaRegCopy className="text-blue-800 cursor-pointer hidden group-hover:block" />
+                <FaRegCopy
+                  onClick={() =>
+                    copyToClipboard(
+                      (products &&
+                        products &&
+                        products[0] &&
+                        products[0].parts &&
+                        products[0].parts[0].Description?.ProductDescription) ||
+                        (products &&
+                          products &&
+                          products[1] &&
+                          products[1].parts &&
+                          products[1].parts[0].Description)
+                    )
+                  }
+                  className="absolute top-1/2 right-0 transform -translate-y-1/2 text-blue-800 cursor-pointer hidden group-hover:block"
+                />
               </div>
               {/* {products &&
                 products &&
@@ -121,7 +210,7 @@ const Description = ({ products }) => {
                     <FaRegCopy className="text-blue-800 cursor-pointer hidden group-hover:block" />
                   </div>
                 )} */}
-              <div className="flex items-center justify-between p-2 text-xs font-Inter font-medium text-neutral-600 group">
+              <div className="flex items-center justify-between p-2 text-xs font-Inter font-medium text-neutral-600 group relative">
                 <div className="flex gap-2 items-center">
                   <a
                     target="_blank"
@@ -160,7 +249,6 @@ const Description = ({ products }) => {
                   </a>
                   <BsFileEarmarkPdfFill className="text-red-600 text-lg" />
                 </div>
-                <FaRegCopy className="text-blue-800 cursor-pointer hidden group-hover:block" />
               </div>
             </div>
           </div>
@@ -198,7 +286,23 @@ const Description = ({ products }) => {
               </h6>
             </div>
             <div className="">
-              <FaRegCopy className="text-blue-800 hidden group-hover:block cursor-pointer" />
+              <FaRegCopy
+                onClick={() =>
+                  copyToClipboard(
+                    (products &&
+                      products &&
+                      products[0] &&
+                      products[0].parts &&
+                      products[0].parts[0].ManufacturerProductNumber) ||
+                      (products &&
+                        products &&
+                        products[1] &&
+                        products[1].parts &&
+                        products[1].parts[0].ManufacturerPartNumber)
+                  )
+                }
+                className="text-blue-800 hidden group-hover:block cursor-pointer"
+              />
             </div>
           </div>
           <div className="flex justify-between items-center group">
@@ -218,7 +322,23 @@ const Description = ({ products }) => {
               </h6>
             </div>
             <div className="">
-              <FaRegCopy className="text-blue-800 hidden group-hover:block cursor-pointer" />
+              <FaRegCopy
+                onClick={() =>
+                  copyToClipboard(
+                    (products &&
+                      products &&
+                      products[0] &&
+                      products[0].parts &&
+                      products[0].parts[0].Manufacturer?.Name) ||
+                      (products &&
+                        products &&
+                        products[1] &&
+                        products[1].parts &&
+                        products[1].parts[0].Manufacturer)
+                  )
+                }
+                className="text-blue-800 hidden group-hover:block cursor-pointer"
+              />
             </div>
           </div>
           <div className="flex justify-between items-center group">
@@ -227,15 +347,36 @@ const Description = ({ products }) => {
                 Manufacturer Product Number
               </h6>
               <h6 className="text-desc-color">
-                {products &&
+                {(products &&
                   products &&
                   products[0] &&
                   products[0].parts &&
-                  products[0].parts[0].ManufacturerProductNumber}
+                  products[0].parts[0].ManufacturerProductNumber) ||
+                  (products &&
+                    products &&
+                    products[1] &&
+                    products[1].parts &&
+                    products[1].parts[0].ManufacturerPartNumber)}
               </h6>
             </div>
             <div className="">
-              <FaRegCopy className="text-blue-800 hidden group-hover:block cursor-pointer" />
+              <FaRegCopy
+                onClick={() =>
+                  copyToClipboard(
+                    (products &&
+                      products &&
+                      products[0] &&
+                      products[0].parts &&
+                      products[0].parts[0].ManufacturerProductNumber) ||
+                      (products &&
+                        products &&
+                        products[1] &&
+                        products[1].parts &&
+                        products[1].parts[0].ManufacturerPartNumber)
+                  )
+                }
+                className="text-blue-800 hidden group-hover:block cursor-pointer"
+              />
             </div>
           </div>
           <div className="flex justify-between items-center group">
@@ -255,10 +396,26 @@ const Description = ({ products }) => {
               </h6>
             </div>
             <div className="">
-              <FaRegCopy className="text-blue-800 hidden group-hover:block cursor-pointer" />
+              <FaRegCopy
+                onClick={() =>
+                  copyToClipboard(
+                    (products &&
+                      products &&
+                      products[0] &&
+                      products[0].parts &&
+                      products[0].parts[0].Description?.ProductDescription) ||
+                      (products &&
+                        products &&
+                        products[1] &&
+                        products[1].parts &&
+                        products[1].parts[0].Description)
+                  )
+                }
+                className="text-blue-800 hidden group-hover:block cursor-pointer"
+              />
             </div>
           </div>
-          <div className="flex justify-between items-center group">
+          <div className="flex justify-between items-center ">
             <div className="flex flex-col text-black text-xs">
               <h6 className="font-semibold text-sm">Datasheet</h6>
               <div className="flex items-center gap-1">
@@ -299,9 +456,6 @@ const Description = ({ products }) => {
                   </h3>
                 </a>
               </div>
-            </div>
-            <div className="">
-              <FaRegCopy className="text-blue-800 hidden group-hover:block cursor-pointer" />
             </div>
           </div>
         </div>

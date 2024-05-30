@@ -4,8 +4,6 @@ import { FaShapes, FaSearchDollar } from 'react-icons/fa';
 import { BsBoxSeam } from 'react-icons/bs';
 
 const PriceBox = ({ parts, img }) => {
-  console.log(parts);
-
   function removeRupeeSign(price) {
     const numberString = price.replace(/[^0-9.]/g, '');
     return parseFloat(numberString);
@@ -16,7 +14,7 @@ const PriceBox = ({ parts, img }) => {
     if (isNaN(number)) {
       return price;
     }
-    return new Intl.NumberFormat('en-US', {
+    return new Intl.NumberFormat('en-IN', {
       style: 'currency',
       currency: 'INR',
     }).format(number);
