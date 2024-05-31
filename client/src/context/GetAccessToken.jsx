@@ -2,7 +2,7 @@
 import { createContext, useEffect, useState } from 'react';
 import axios from 'axios';
 
-// Create authentication context
+// Create AccessTokenContext context
 export const AccessTokenContext = createContext();
 
 export const AccessTokenProvider = ({ children }) => {
@@ -41,7 +41,14 @@ export const AccessTokenProvider = ({ children }) => {
       }
     };
 
+    // Fetch the access token immediately
     fetchAccessToken();
+
+    // Set up the interval to fetch the access token periodically
+    const fetchAccessTokenInterval = setInterval(fetchAccessToken, 570000);
+
+    // Cleanup function to clear the interval
+    return () => clearInterval(fetchAccessTokenInterval);
   }, []);
   return (
     <AccessTokenContext.Provider value={{ accessToken }}>

@@ -89,12 +89,6 @@ const PriceBox = ({ parts, img }) => {
               parts[1].distributor === import.meta.env.VITE_MOUSER
             ? parts[0].PriceBreaks &&
               parts[0].PriceBreaks.map((prcBreaks, prcIndex) => {
-                console.log(prcBreaks);
-                console.log(
-                  formatPriceWithCommas(
-                    prcBreaks.Quantity * removeRupeeSign(prcBreaks.Price)
-                  )
-                );
                 return (
                   <tr key={prcIndex}>
                     <td className="text-xs border-solid border-[#B4B4B4] border p-2">
