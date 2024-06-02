@@ -50,7 +50,7 @@ const sortArr = (response) => {
   if (response?.data?.Products?.length > 0) {
     const variations = response.data.Products[0].ProductVariations;
     console.log(variations);
-    const sortedVariations = variations.map((variation, i) => {
+    const sortedVariations = variations.map((variation) => {
       // console.log(variation);
 
       const isCutTape = (name) => name === 'Cut Tape (CT)';
