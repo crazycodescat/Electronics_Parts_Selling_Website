@@ -10,31 +10,38 @@ import AddToCart from '../../components/Part/AddToCart';
 import { useAccessToken } from '../../hooks/useAccessToken';
 import { useGetParts } from '../../hooks/useGetParts';
 // import ProductDetails from '../../components/Part/ProductDetails'
+import ShimmerEffect from '../../components/ShimmerEffect';
 
 const Part = () => {
   const { accessToken } = useAccessToken();
-  const { fetchParts } = useGetParts();
+  const { fetchParts, loading, setLoading } = useGetParts();
   const [products, setProducts] = useState(null);
   const { partnumber } = useParams();
 
   useEffect(() => {
     const loadParts = async () => {
       if (accessToken && partnumber) {
+        setLoading(true);
         const parts = await fetchParts(partnumber, 1);
         setProducts(parts);
+        setLoading(false);
       }
     };
     loadParts();
   }, [accessToken, partnumber, fetchParts]);
 
   return (
-    <div className="bg-page-bg">
+    <div className="bg-page-bg h-full">
       <div className="flex flex-col gap-8 text-black px-3 pt-3 xl:flex-row lg:justify-center max-w-[1200px] mx-auto">
         {/* UPPER SECTION --> IMAGE AND DESCRIPTION */}
-        <div className="h-fit flex flex-col gap-12 items-center px-4 bg-white shadow-xl py-4 xl:max-w-[800px] md:rounded-2xl 2xl:flex-row">
-          <ImageSection products={products} />
-          <Description products={products} />
-        </div>
+        {loading ? (
+          <ShimmerEffect />
+        ) : (
+          <div className="h-fit flex flex-col gap-12 items-center px-4 bg-white shadow-xl py-4 xl:max-w-[800px] md:rounded-2xl 2xl:flex-row">
+            <ImageSection products={products} />
+            <Description products={products} />
+          </div>
+        )}
 
         <div className="flex flex-col gap-4 flex-grow xl:max-w-[350px]">
           {/* LOWER SECTION --> BULK PRICES AND DIFFERENT DISTRIBUTORS */}

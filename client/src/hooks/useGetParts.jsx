@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useAccessToken } from './useAccessToken';
-import { useMemo } from 'react';
+import { useMemo, useState } from 'react';
 
 const formatResponse = (data) => {
   if (data?.Products) {
@@ -91,6 +91,7 @@ const sortArr = (response) => {
 
 const useGetParts = () => {
   const { accessToken } = useAccessToken();
+  const [loading, setLoading] = useState(true);
 
   const fetchParts = useMemo(
     () =>
@@ -139,7 +140,6 @@ const useGetParts = () => {
         ];
 
         const products = [];
-
         try {
           for (let i = 0; i < distributorsRequestConfig.length; i++) {
             const response = await axios.request(distributorsRequestConfig[i]);
@@ -149,7 +149,6 @@ const useGetParts = () => {
               parts: formatResponse(response.data),
             });
           }
-
           return products;
         } catch (error) {
           console.error('ERROR: While Fetching Parts', error);
@@ -159,7 +158,7 @@ const useGetParts = () => {
     [accessToken]
   );
 
-  return { fetchParts };
+  return { fetchParts, loading, setLoading };
 };
 
 export { useGetParts };

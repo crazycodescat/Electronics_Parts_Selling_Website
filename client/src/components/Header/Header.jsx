@@ -20,7 +20,6 @@ const Header = () => {
       setEnterPartNumber(false);
       const partNumber = ref.current.value;
       const encodedPartNumber = encodeURIComponent(partNumber);
-      console.log(encodedPartNumber);
       navigate(`/api/part/${encodedPartNumber}`);
     } else {
       setEnterPartNumber(true);
@@ -53,10 +52,10 @@ const Header = () => {
           </div>
 
           <div className="flex items-center justify-center gap-2">
-            <Link className='p-3'>
+            <Link className="p-3">
               <FaRegUser fontSize={22} />
             </Link>
-            <Link className='p-3'>
+            <Link className="p-3">
               <FaCartPlus fontSize={22} />
             </Link>
           </div>
