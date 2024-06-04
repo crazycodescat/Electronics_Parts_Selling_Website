@@ -45,11 +45,11 @@ const formatResponse = (data) => {
 };
 
 const sortArr = (response) => {
-  console.log(response);
+  // console.log(response);
 
   if (response?.data?.Products?.length > 0) {
     const variations = response.data.Products[0].ProductVariations;
-    console.log(variations);
+    // console.log(variations);
     const sortedVariations = variations.map((variation) => {
       // console.log(variation);
 
@@ -66,7 +66,7 @@ const sortArr = (response) => {
       const condition =
         isCutTape(variation.PackageType.Name) ||
         isDigiReel(variation.PackageType.Name);
-      console.log(condition);
+      // console.log(condition);
       if (condition) {
         // console.log(variation.StandardPricing);
         return [
@@ -85,7 +85,7 @@ const sortArr = (response) => {
         },
       ];
     });
-    console.log(sortedVariations);
+    // console.log(sortedVariations);
   }
 };
 
