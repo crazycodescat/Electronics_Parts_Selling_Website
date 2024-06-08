@@ -1,16 +1,16 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 
 // COMPONENTS
-import ImageSection from '../../components/Part/ImageSection';
-import Description from '../../components/Part/Description';
-import PriceBox from '../../components/Part/PriceBox';
-import LowestPriceBox from '../../components/Part/LowestPriceBox';
-import AddToCart from '../../components/Part/AddToCart';
-import { useAccessToken } from '../../hooks/useAccessToken';
-import { useGetParts } from '../../hooks/useGetParts';
+import ImageSection from "../../components/Part/ImageSection";
+import Description from "../../components/Part/Description";
+import PriceBox from "../../components/Part/PriceBox";
+import LowestPriceBox from "../../components/Part/LowestPriceBox";
+import AddToCart from "../../components/Part/AddToCart";
+import { useAccessToken } from "../../hooks/useAccessToken";
+import { useGetParts } from "../../hooks/useGetParts";
 // import ProductDetails from '../../components/Part/ProductDetails'
-import ShimmerEffect from '../../components/ShimmerEffect';
+import ShimmerEffect from "../../components/ShimmerEffect";
 
 const Part = () => {
   const { accessToken } = useAccessToken();
@@ -21,6 +21,7 @@ const Part = () => {
   useEffect(() => {
     const loadParts = async () => {
       if (accessToken && partnumber) {
+        console.log(accessToken);
         setLoading(true);
         const parts = await fetchParts(partnumber, 1);
         setProducts(parts);
@@ -44,22 +45,25 @@ const Part = () => {
         )}
 
         <div className="flex flex-col gap-4 flex-grow xl:max-w-[350px]">
+          {/* ADD TO CART SECTION */}
+          <div className="bg-white p-3">
+            <AddToCart />
+          </div>
+
           {/* LOWER SECTION --> BULK PRICES AND DIFFERENT DISTRIBUTORS */}
           {products &&
             products.map((product, productIndex) => {
-              // if (!product.parts || product.parts.length === 0) {
-              //   return null;
-              // }
+              console.log(product);
               return (
                 <div key={productIndex} className="flex flex-col gap-4">
                   <PriceBox
                     img={
                       product.parts[1].distributor ===
                       import.meta.env.VITE_DIGIKEY
-                        ? 'https://res.cloudinary.com/ddx7todbr/image/upload/v1713606629/Electronics%20Parts%20Listing%20Website/s0l9tr2tn1qdzdbupymp.avif'
+                        ? "https://res.cloudinary.com/ddx7todbr/image/upload/v1713606629/Electronics%20Parts%20Listing%20Website/s0l9tr2tn1qdzdbupymp.avif"
                         : product.parts[1].distributor ===
                           import.meta.env.VITE_MOUSER
-                        ? 'https://res.cloudinary.com/ddx7todbr/image/upload/v1713606671/Electronics%20Parts%20Listing%20Website/c4nldcp1kyvyyzy08f2j.webp'
+                        ? "https://res.cloudinary.com/ddx7todbr/image/upload/v1713606671/Electronics%20Parts%20Listing%20Website/c4nldcp1kyvyyzy08f2j.webp"
                         : null
                     }
                     parts={product.parts}
@@ -69,14 +73,9 @@ const Part = () => {
             })}
 
           {/* LOWEST PRICE SECTION */}
-          <div>
+          {/* <div>
             <LowestPriceBox />
-          </div>
-
-          {/* ADD TO CART SECTION */}
-          <div className="bg-white p-3">
-            <AddToCart />
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

@@ -32,7 +32,7 @@ const Header = () => {
         {open && <MobileNavigation navigationToggler={navigationToggler} />}
       </AnimatePresence>
       <div className="">
-        <div className="mx-auto flex justify-between px-3 max-w-[1200px]">
+        <div className="mx-auto flex justify-between px-3 max-w-[1400px]">
           <div className="flex gap-2">
             <button
               onClick={navigationToggler}

@@ -8,7 +8,7 @@ export const AccessTokenContext = createContext();
 export const AccessTokenProvider = ({ children }) => {
   const [accessToken, setAccessToken] = useState(null);
 
-  // console.log(accessToken);
+  console.log(accessToken);
   // Function to get access token
   const getAccessToken = async () => {
     const requestBody = {
@@ -36,6 +36,7 @@ export const AccessTokenProvider = ({ children }) => {
   useEffect(() => {
     const fetchAccessToken = async () => {
       const newAccessToken = await getAccessToken();
+      console.log(newAccessToken);
       if (newAccessToken) {
         setAccessToken(newAccessToken);
       }

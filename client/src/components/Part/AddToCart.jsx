@@ -12,6 +12,7 @@ const AddToCart = () => {
           <input
             className="h-10 rounded-md p-2 outline-dashed outline-1 outline-red-600 placeholder:text-xs"
             type="number"
+            pattern=""
             placeholder="Enter Quantity"
           />
         </div>

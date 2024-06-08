@@ -44,50 +44,50 @@ const formatResponse = (data) => {
   }
 };
 
-const sortArr = (response) => {
-  // console.log(response);
+// const sortArr = (response) => {
+//   // console.log(response);
 
-  if (response?.data?.Products?.length > 0) {
-    const variations = response.data.Products[0].ProductVariations;
-    // console.log(variations);
-    const sortedVariations = variations.map((variation) => {
-      // console.log(variation);
+//   if (response?.data?.Products?.length > 0) {
+//     const variations = response.data.Products[0].ProductVariations;
+//     // console.log(variations);
+//     const sortedVariations = variations.map((variation) => {
+//       // console.log(variation);
 
-      const isCutTape = (name) => name === 'Cut Tape (CT)';
-      const isDigiReel = (name) => name === 'Digi-Reel®';
+//       const isCutTape = (name) => name === 'Cut Tape (CT)';
+//       const isDigiReel = (name) => name === 'Digi-Reel®';
 
-      // const condition =
-      //   (isCutTape(variation.PackageType.Name) ||
-      //     isDigiReel(variation.PackageType.Name)) &&
-      //   (isDigiReel(variations[i]?.PackageType.Name) ||
-      //     isCutTape(variations[i]?.PackageType.Name));
+//       // const condition =
+//       //   (isCutTape(variation.PackageType.Name) ||
+//       //     isDigiReel(variation.PackageType.Name)) &&
+//       //   (isDigiReel(variations[i]?.PackageType.Name) ||
+//       //     isCutTape(variations[i]?.PackageType.Name));
 
-      // console.log(condition);
-      const condition =
-        isCutTape(variation.PackageType.Name) ||
-        isDigiReel(variation.PackageType.Name);
-      // console.log(condition);
-      if (condition) {
-        // console.log(variation.StandardPricing);
-        return [
-          {
-            packageType: variation?.PackageType,
-            StandardPricing: [...variation?.StandardPricing],
-          },
-        ];
-      }
+//       // console.log(condition);
+//       const condition =
+//         isCutTape(variation.PackageType.Name) ||
+//         isDigiReel(variation.PackageType.Name);
+//       // console.log(condition);
+//       if (condition) {
+//         // console.log(variation.StandardPricing);
+//         return [
+//           {
+//             packageType: variation?.PackageType,
+//             StandardPricing: [...variation?.StandardPricing],
+//           },
+//         ];
+//       }
 
-      return [
-        {
-          packageType: variation?.PackageType,
-          StandardPricing: [...variation?.StandardPricing],
-          hello: 'hello',
-        },
-      ];
-    });
-    // console.log(sortedVariations);
-  }
-};
+//       return [
+//         {
+//           packageType: variation?.PackageType,
+//           StandardPricing: [...variation?.StandardPricing],
+//           hello: 'hello',
+//         },
+//       ];
+//     });
+//     // console.log(sortedVariations);
+//   }
+// };
 
 const useGetParts = () => {
   const { accessToken } = useAccessToken();
@@ -144,7 +144,7 @@ const useGetParts = () => {
           for (let i = 0; i < distributorsRequestConfig.length; i++) {
             const response = await axios.request(distributorsRequestConfig[i]);
             // console.log(response);
-            sortArr(response);
+            // sortArr(response);
             products.push({
               parts: formatResponse(response.data),
             });
