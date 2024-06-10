@@ -21,7 +21,6 @@ const Part = () => {
   useEffect(() => {
     const loadParts = async () => {
       if (accessToken && partnumber) {
-        console.log(accessToken);
         setLoading(true);
         const parts = await fetchParts(partnumber, 1);
         setProducts(parts);
@@ -53,7 +52,6 @@ const Part = () => {
           {/* LOWER SECTION --> BULK PRICES AND DIFFERENT DISTRIBUTORS */}
           {products &&
             products.map((product, productIndex) => {
-              console.log(product);
               return (
                 <div key={productIndex} className="flex flex-col gap-4">
                   <PriceBox
