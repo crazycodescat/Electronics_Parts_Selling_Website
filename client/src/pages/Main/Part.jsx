@@ -29,7 +29,7 @@ const Part = () => {
     };
     loadParts();
   }, [accessToken, partnumber, fetchParts]);
-
+  console.log(products && products);
   return (
     <div className="bg-page-bg h-full">
       <div className="flex flex-col gap-8 text-black px-3 pt-3 xl:flex-row lg:justify-center max-w-[1200px] mx-auto">

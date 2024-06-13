@@ -1,28 +1,28 @@
 /* eslint-disable react/prop-types */
-import { BsFileEarmarkPdfFill } from 'react-icons/bs';
-import { FaRegCopy } from 'react-icons/fa6';
+import { BsFileEarmarkPdfFill } from "react-icons/bs";
+import { FaRegCopy } from "react-icons/fa6";
 
 const Description = ({ products }) => {
   const copyToClipboard = async (text) => {
     try {
       if (!navigator.clipboard) {
-        console.log('clipboard API is not available');
+        console.log("clipboard API is not available");
         return;
       }
 
       const textToCopy = text.trim();
       const permissionStatus = await navigator.permissions.query({
-        name: 'clipboard-write',
+        name: "clipboard-write",
       });
-      if (permissionStatus.state === 'denied') {
-        console.log('Clipboard permission denied. please add https connection');
+      if (permissionStatus.state === "denied") {
+        console.log("Clipboard permission denied. please add https connection");
         return;
       }
       //write the text to the clipboard
       await navigator.clipboard.writeText(textToCopy);
-      console.log('Text copied to clipboard successfully');
+      // console.log('Text copied to clipboard successfully');
     } catch (error) {
-      console.error('Failed to copy text to clipboard:', error);
+      console.error("Failed to copy text to clipboard:", error);
     }
   };
 
@@ -30,16 +30,35 @@ const Description = ({ products }) => {
     <>
       <div className="hidden md:block">
         <div className="flex flex-col gap-6 w-full">
-          <h1 className="text-xl font-black">
-            {(products &&
-              products[0] &&
-              products[0].parts &&
-              products[0].parts[0].ManufacturerProductNumber) ||
-              (products &&
-                products[1] &&
-                products[1].parts &&
-                products[1].parts[0].ManufacturerPartNumber)}
-          </h1>
+          <div className="flex gap-2 items-center group">
+            <h1 className="text-xl font-black">
+              {(products &&
+                products[0] &&
+                products[0].parts &&
+                products[0].parts[0].ManufacturerProductNumber) ||
+                (products &&
+                  products[1] &&
+                  products[1].parts &&
+                  products[1].parts[0].ManufacturerPartNumber)}
+            </h1>
+            <FaRegCopy
+              onClick={() =>
+                copyToClipboard(
+                  (products &&
+                    products &&
+                    products[0] &&
+                    products[0].parts &&
+                    products[0].parts[0].ManufacturerProductNumber) ||
+                    (products &&
+                      products &&
+                      products[1] &&
+                      products[1].parts &&
+                      products[1].parts[0].ManufacturerPartNumber)
+                )
+              }
+              className="text-blue-800 cursor-pointer hidden group-hover:block"
+            />
+          </div>
           {/* WRAPPER */}
           <div className="flex gap-4">
             <div className="w-[400px]">
@@ -221,14 +240,14 @@ const Description = ({ products }) => {
                       products[0].parts &&
                       products[0].parts[0].DatasheetUrl !== null
                         ? products[0].parts[0].DatasheetUrl
-                        : '/') ||
+                        : "/") ||
                       (products &&
                       products &&
                       products[1] &&
                       products[1].parts &&
-                      products[1].parts[0].DataSheetUrl !== ''
+                      products[1].parts[0].DataSheetUrl !== ""
                         ? products[1].parts[0].DataSheetUrl
-                        : '/')
+                        : "/")
                     }
                   >
                     <h3 className="text-blue-700 cursor-pointer hover:underline">
@@ -237,14 +256,14 @@ const Description = ({ products }) => {
                       products[0] &&
                       products[0].parts &&
                       products[0].parts[0].DatasheetUrl === null
-                        ? 'DataSheet Not Available'
+                        ? "DataSheet Not Available"
                         : products &&
                           products &&
                           products[0] &&
                           products[0].parts &&
-                          products[0].parts[0].DataSheetUrl === ''
-                        ? 'DataSheet Not Available'
-                        : 'DataSheet'}
+                          products[0].parts[0].DataSheetUrl === ""
+                        ? "DataSheet Not Available"
+                        : "DataSheet"}
                     </h3>
                   </a>
                   <BsFileEarmarkPdfFill className="text-red-600 text-lg" />
@@ -256,18 +275,37 @@ const Description = ({ products }) => {
       </div>
 
       <div className="w-full font-Inter md:hidden">
-        <h1 className="text-xl font-black">
-          {(products &&
-            products &&
-            products[0] &&
-            products[0].parts &&
-            products[0].parts[0].ManufacturerProductNumber) ||
-            (products &&
+        <div className="flex gap-2 group items-center">
+          <h1 className="text-xl font-black">
+            {(products &&
               products &&
-              products[1] &&
-              products[1].parts &&
-              products[1].parts[0].ManufacturerPartNumber)}
-        </h1>
+              products[0] &&
+              products[0].parts &&
+              products[0].parts[0].ManufacturerProductNumber) ||
+              (products &&
+                products &&
+                products[1] &&
+                products[1].parts &&
+                products[1].parts[0].ManufacturerPartNumber)}
+          </h1>
+          <FaRegCopy
+            onClick={() =>
+              copyToClipboard(
+                (products &&
+                  products &&
+                  products[0] &&
+                  products[0].parts &&
+                  products[0].parts[0].ManufacturerProductNumber) ||
+                  (products &&
+                    products &&
+                    products[1] &&
+                    products[1].parts &&
+                    products[1].parts[0].ManufacturerPartNumber)
+              )
+            }
+            className="text-blue-800 cursor-pointer group-hover:block hidden"
+          />
+        </div>
         <div className="flex flex-col gap-6 mt-8 font-medium">
           <div className="flex justify-between items-center group">
             <div className="flex flex-col text-black text-xs">
@@ -429,14 +467,14 @@ const Description = ({ products }) => {
                     products[0].parts &&
                     products[0].parts[0].DatasheetUrl !== null
                       ? products[0].parts[0].DatasheetUrl
-                      : '/') ||
+                      : "/") ||
                     (products &&
                     products &&
                     products[1] &&
                     products[1].parts &&
-                    products[1].parts[0].DataSheetUrl !== ''
+                    products[1].parts[0].DataSheetUrl !== ""
                       ? products[1].parts[0].DataSheetUrl
-                      : '/')
+                      : "/")
                   }
                 >
                   <h3 className="text-blue-700 cursor-pointer hover:underline">
@@ -445,14 +483,14 @@ const Description = ({ products }) => {
                     products[0] &&
                     products[0].parts &&
                     products[0].parts[0].DatasheetUrl === null
-                      ? 'DataSheet Not Available'
+                      ? "DataSheet Not Available"
                       : products &&
                         products &&
                         products[0] &&
                         products[0].parts &&
-                        products[0].parts[0].DataSheetUrl === ''
-                      ? 'DataSheet Not Available'
-                      : 'DataSheet'}
+                        products[0].parts[0].DataSheetUrl === ""
+                      ? "DataSheet Not Available"
+                      : "DataSheet"}
                   </h3>
                 </a>
               </div>

@@ -21,33 +21,47 @@ const PriceBox = ({ parts, img }) => {
     return formattedPrice;
   }
   return (
-    <div className=" shadow-xl">
+    <div className="shadow-xl">
       <div className="flex flex-col gap-2 w-full">
         {parts &&
         parts[1]?.distributor &&
         parts[1]?.distributor === import.meta.env.VITE_DIGIKEY
           ? parts[0]?.ProductVariations &&
             parts[0]?.ProductVariations.map((variation, variationIndex) => {
+              if (
+                (parts &&
+                  parts[0]?.ProductVariations.length - 1 === variationIndex &&
+                  variation.PackageType.Name === "Cut Tape (CT)") ||
+                variation.PackageType.Name === "Digi-Reel®"
+              ) {
+                return;
+              }
               return (
                 <div key={variationIndex} className="bg-white">
                   <div className="flex justify-between gap-2 items-center py-4 px-2">
                     <p className="font-semibold text-base">
-                      {variation.PackageType.Name}
+                      {/* {`${variation.PackageType.Name}`} */}
+                      {`${
+                        variation.PackageType.Name === "Cut Tape (CT)" ||
+                        variation.PackageType.Name === "Digi-Reel®"
+                          ? "Cut Tape (CT) & Digi-Reel®"
+                          : variation.PackageType.Name
+                      }`}
                     </p>
                     <div className="max-w-[60px]">
-                      <img src={`${variationIndex === 0 && img}`} alt="" />
+                      <img src={`${img}`} alt="" />
                     </div>
                   </div>
                   <table className="w-full">
                     <thead>
-                      <tr className="text-xs font-semibold">
-                        <td className="text-start p-2 font-bold border-solid border-[#B4B4B4] border border-t border-t-1 border-b border-l-0 border-r border-r-1">
+                      <tr className="text-xs font-bold">
+                        <td className="text-start p-2 border-solid border-[#B4B4B4] border border-t border-t-1 border-b border-l-0 border-r border-r-1">
                           QUANTITY
                         </td>
-                        <td className="text-start p-2 font-bold border-solid border-[#B4B4B4] border border-t border-b border-l-0 border-r-0">
+                        <td className="text-start p-2 border-solid border-[#B4B4B4] border border-t border-b border-l-0 border-r-0">
                           UNIT PRICE
                         </td>
-                        <td className="text-end p-2 font-bold border-solid border-[#B4B4B4] border border-t border-b border-l-0 border-r-0">
+                        <td className="text-end p-2 border-solid border-[#B4B4B4] border border-t border-b border-l-0 border-r-0">
                           EXT PRICE
                         </td>
                       </tr>
@@ -55,19 +69,20 @@ const PriceBox = ({ parts, img }) => {
                     <tbody>
                       {variation.StandardPricing.map(
                         (pricing, pricingIndex) => {
+                          console.log(pricing);
                           return (
                             <tr key={pricingIndex} className="text-xs">
-                              <td className="text-start p-2 font-bold border-solid border-[#B4B4B4] border border-t border-t-1 border-b border-l-0 border-r border-r-1">
+                              <td className="text-start p-2 font-semibold border-solid border-[#B4B4B4] border border-t border-t-1 border-b border-l-0 border-r border-r-1">
                                 <p>
                                   {new Intl.NumberFormat("en-US", {}).format(
                                     pricing.BreakQuantity
                                   )}
                                 </p>
                               </td>
-                              <td className="text-start p-2 font-bold border-solid border-[#B4B4B4] border border-t border-b border-l-0 border-r-0">
+                              <td className="text-start p-2 font-medium border-solid border-[#B4B4B4] border border-t border-b border-l-0 border-r-0">
                                 {formatPriceWithCommas(pricing.UnitPrice)}
                               </td>
-                              <td className="text-end p-2 font-bold border-solid border-[#B4B4B4] border border-t border-b border-l-0 border-r-0 ">
+                              <td className="text-end p-2 font-medium border-solid border-[#B4B4B4] border border-t border-b border-l-0 border-r-0 ">
                                 {formatPriceWithCommas(pricing.TotalPrice)}
                               </td>
                             </tr>
