@@ -6,8 +6,7 @@ const app = express();
 env.config();
 
 // Use middleware to parse JSON and handle URL-encoded data
-app.use(express.json());
-
+app.use(express.urlencoded({ extended: false }));
 app.use(cors());
 
 app.use((req, res, next) => {
@@ -15,13 +14,15 @@ app.use((req, res, next) => {
   next();
 });
 
-//routes
-// app.use('/api/products', productsRoute);
-// app.use('/api/user', userRoutes);
-// app.use('/api/cart', requireAuth, cartRoutes);
-
 app.get('/', (req, res) => {
   res.send('Hello World.');
+});
+
+app.post('/rfq', (req, res) => {
+  console.log(req.body); // Log full body to see parsed data
+  const { fullName } = req.body;
+  console.log(fullName);
+  // ... rest of your route logic
 });
 
 app.listen(process.env.PORT, () => {
