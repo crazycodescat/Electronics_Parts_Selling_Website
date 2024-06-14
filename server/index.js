@@ -1,6 +1,9 @@
-import express from 'express';
-import env from 'dotenv';
-import cors from 'cors';
+import express from "express";
+import env from "dotenv";
+import cors from "cors";
+
+//MODULES
+import rfqRoutes from "./src/routes/rfqRoutes.js";
 
 const app = express();
 env.config();
@@ -14,15 +17,11 @@ app.use((req, res, next) => {
   next();
 });
 
-app.get('/', (req, res) => {
-  res.send('Hello World.');
-});
+// ROUTES MIDDLEWARE
+app.use("/api", rfqRoutes);
 
-app.post('/rfq', (req, res) => {
-  console.log(req.body); // Log full body to see parsed data
-  const { fullName } = req.body;
-  console.log(fullName);
-  // ... rest of your route logic
+app.get("/", (req, res) => {
+  res.send("Hello World.");
 });
 
 app.listen(process.env.PORT, () => {
