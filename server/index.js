@@ -4,6 +4,7 @@ import cors from "cors";
 
 //MODULES
 import rfqRoutes from "./src/routes/rfqRoutes.js";
+import captchaTokenVerification from "./src/middlewares/captchaTokenVerification.js";
 
 const app = express();
 env.config();
@@ -18,7 +19,7 @@ app.use((req, res, next) => {
 });
 
 // ROUTES MIDDLEWARE
-app.use("/api", rfqRoutes);
+app.use("/api", captchaTokenVerification, rfqRoutes);
 
 app.get("/", (req, res) => {
   res.send("Hello World.");

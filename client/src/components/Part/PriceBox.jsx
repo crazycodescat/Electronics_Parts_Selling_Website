@@ -69,7 +69,6 @@ const PriceBox = ({ parts, img }) => {
                     <tbody>
                       {variation.StandardPricing.map(
                         (pricing, pricingIndex) => {
-                          console.log(pricing);
                           return (
                             <tr key={pricingIndex} className="text-xs">
                               <td className="text-start p-2 font-semibold border-solid border-[#B4B4B4] border border-t border-t-1 border-b border-l-0 border-r border-r-1">

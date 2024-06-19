@@ -1,8 +1,6 @@
 import nodemailer from "nodemailer";
 
 async function nodeMailer(mailOptions) {
-  console.log(process.env.GMAIL_ID, process.env.APP_PASSWORD);
-
   const transporter = nodemailer.createTransport({
     service: "gmail",
     host: "smtp.google.com",
@@ -16,9 +14,13 @@ async function nodeMailer(mailOptions) {
 
   try {
     const info = await transporter.sendMail(mailOptions);
-    console.log("Email sent:", info.response);
+
+    if (info.response) {
+      return { status: 200, message: "Email sent successfully ✔" };
+    }
+    return;
   } catch (error) {
-    console.error("Error sending email:", error);
+    return { errMessage: error.message, status: 500 };
   }
 }
 

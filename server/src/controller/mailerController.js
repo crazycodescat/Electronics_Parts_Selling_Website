@@ -1,7 +1,6 @@
 import nodeMailer from "../utility/nodeMailer.js";
 
 const mailer = async (req, res) => {
-  console.log(process.env.GMAIL_ID, process.env.APP_PASSWORD);
   const {
     firstName,
     lastName,
@@ -12,10 +11,10 @@ const mailer = async (req, res) => {
     quantity,
     speacialInstructions,
   } = req.body;
-
+  console.log(req.body);
   const mailOptions = {
-    from: `taiyyab ❤❤ ${email}`,
-    to: process.env.GMAIL_ID,
+    from: `${email}`,
+    to: process.env.GMAIL_ID2,
     subject: `Quotation Request for ${partNumber}`,
     text: `
       Name: ${firstName} ${lastName}.
@@ -29,8 +28,11 @@ const mailer = async (req, res) => {
   };
 
   try {
-    await nodeMailer(mailOptions);
-    res.status(200).send("Email Sent Successfully!");
+    const { status, message } = await nodeMailer(mailOptions);
+    console.log(status, message, 32);
+    if (status === 200) {
+      res.status(200).send("Email Sent Successfully!");
+    }
   } catch (error) {
     res.status(500).send("Error sending email. Please try again later.");
   }

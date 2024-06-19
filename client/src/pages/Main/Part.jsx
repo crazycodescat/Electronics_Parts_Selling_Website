@@ -5,12 +5,13 @@ import { useParams } from "react-router-dom";
 import ImageSection from "../../components/Part/ImageSection";
 import Description from "../../components/Part/Description";
 import PriceBox from "../../components/Part/PriceBox";
-import LowestPriceBox from "../../components/Part/LowestPriceBox";
+// import LowestPriceBox from "../../components/Part/LowestPriceBox";
 import AddToCart from "../../components/Part/AddToCart";
 import { useAccessToken } from "../../hooks/useAccessToken";
 import { useGetParts } from "../../hooks/useGetParts";
 // import ProductDetails from '../../components/Part/ProductDetails'
 import ShimmerEffect from "../../components/ShimmerEffect";
+import RfqForm from "../../components/Part/RfqForm";
 
 const Part = () => {
   const { accessToken } = useAccessToken();
@@ -28,20 +29,25 @@ const Part = () => {
       }
     };
     loadParts();
-  }, [accessToken, partnumber, fetchParts]);
-  console.log(products && products);
+  }, [accessToken, partnumber, fetchParts, setLoading]);
+
   return (
     <div className="bg-page-bg h-full">
       <div className="flex flex-col gap-8 text-black px-3 pt-3 xl:flex-row lg:justify-center max-w-[1200px] mx-auto">
-        {/* UPPER SECTION --> IMAGE AND DESCRIPTION */}
-        {loading ? (
-          <ShimmerEffect />
-        ) : (
-          <div className="h-fit flex flex-col gap-12 items-center px-4 bg-white shadow-xl py-4 xl:max-w-[800px] md:rounded-2xl 2xl:flex-row">
-            <ImageSection products={products} />
-            <Description products={products} />
-          </div>
-        )}
+        <div className="flex flex-col gap-6">
+          {/* UPPER SECTION --> IMAGE AND DESCRIPTION */}
+          {loading ? (
+            <ShimmerEffect />
+          ) : (
+            <div className="h-fit flex flex-col gap-12 items-center px-4 bg-white shadow-xl py-4 xl:max-w-[800px] md:rounded-2xl 2xl:flex-row">
+              <ImageSection products={products} />
+              <Description products={products} />
+            </div>
+          )}
+
+          {/* RFQ Section */}
+          <RfqForm />
+        </div>
 
         <div className="flex flex-col gap-4 flex-grow xl:max-w-[350px]">
           {/* ADD TO CART SECTION */}
